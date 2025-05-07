@@ -38,8 +38,12 @@ def load_data(file_path):
     """
     # YOUR CODE HERE
     # Load the CSV file using pandas
-    
-    return pd.DataFrame()  # Replace with actual implementation
+    path = file_path
+    df = pd.read_csv(
+            file_path,
+            parse_dates=["timestamp"],   # parses the column to datetime dtype
+            infer_datetime_format=True)
+    return df
 ```
 
 ## 3. Data Preparation
@@ -140,24 +144,24 @@ if __name__ == "__main__":
     # 1. Load data
     data_file = 'data/synthetic_health_data.csv'
     df = load_data(data_file)
-    
+
     # 2. Prepare data
     X_train, X_test, y_train, y_test = prepare_data_part1(df)
-    
+
     # 3. Train model
     model = train_logistic_regression(X_train, y_train)
-    
+
     # 4. Evaluate model
     metrics = calculate_evaluation_metrics(model, X_test, y_test)
-    
+
     # 5. Print metrics
     for metric, value in metrics.items():
         if metric != 'confusion_matrix':
             print(f"{metric}: {value:.4f}")
-    
+
     # 6. Save results
     # (Your code for saving results)
-    
+
     # 7. Interpret results
     interpretation = interpret_results(metrics)
     print("\nResults Interpretation:")

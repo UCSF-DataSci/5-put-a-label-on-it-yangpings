@@ -185,33 +185,34 @@ if __name__ == "__main__":
     # 1. Load data
     data_file = 'data/synthetic_health_data.csv'
     df = load_data(data_file)
-    
+
     # 2. Prepare data with categorical encoding
     X_train, X_test, y_train, y_test = prepare_data_part3(df)
-    
+
     # 3. Apply SMOTE to balance the training data
     X_train_resampled, y_train_resampled = apply_smote(X_train, y_train)
-    
+
     # 4. Train model on resampled data
     model = train_logistic_regression(X_train_resampled, y_train_resampled)
-    
+
     # 5. Evaluate on original test set
     metrics = calculate_evaluation_metrics(model, X_test, y_test)
-    
+
     # 6. Print metrics
     for metric, value in metrics.items():
         if metric != 'confusion_matrix':
             print(f"{metric}: {value:.4f}")
-    
+
     # 7. Save results
     # (Your code for saving results)
-    
+
     # 8. Load Part 1 results for comparison
     import json
+
     try:
         with open('results/results_part1.txt', 'r') as f:
             part1_metrics = json.load(f)
-        
+
         # 9. Compare models
         comparison = compare_models(part1_metrics, metrics)
         print("\nModel Comparison (improvement percentages):")
